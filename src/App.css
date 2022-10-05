@@ -51,20 +51,6 @@
   border-color: white !important;
 }
 
-/* <!-- ---- Collection ---- --> */
-.active-filter-btn{
-  background-color: var(--pink) !important;
-  color: white !important;
-  border-color: var(--pink) !important;
-}
-.collection-img span{
-  top: 20px;
-  right: 20px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-}
-
 /* <!-- ---- Specials ---- --> */
 .special-img span{
   top: 20px;
@@ -185,4 +171,16 @@ p {
   .cartImage {
       display: none;
   }
+}
+
+/* <!-- ---- Admin ---- --> */
+.admin {
+  text-align: center;
+  padding-top: 120px !important;
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+  padding-bottom: 100px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

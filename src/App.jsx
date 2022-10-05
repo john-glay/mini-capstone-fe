@@ -5,6 +5,7 @@ import NavigationBar from "./components/NavigationBar";
 import Products from "./components/pages/Products";
 import Product from "./components/pages/Product";
 import AboutUs from "./components/pages/AboutUs";
+import Admin from "./components/pages/Admin";
 import ContactUs from "./components/pages/ContactUs";
 import Login from "./components/pages/authentication/Login";
 import Signup from "./components/pages/authentication/Signup";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
