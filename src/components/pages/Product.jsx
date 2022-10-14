@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import * as actionCart from "../../redux/actions/actionCart";
 
 export default function Product() {
   const { id } = useParams();
@@ -14,6 +15,7 @@ export default function Product() {
   const [product, setProduct] = useState([]);
   const navigate = useNavigate();
   const { getProduct } = bindActionCreators(actionProduct, useDispatch());
+  const { addToCart } = bindActionCreators(actionCart, useDispatch());
 
   useEffect(() => {
     setLoading(true);
@@ -24,8 +26,11 @@ export default function Product() {
     });
   }, [id]);
 
-  const addProductToCart = (e) => {
-    e.preventDefault();
+  const addProductToCart = (productId) => {
+    if(localStorage.email) {
+      addToCart(localStorage.email, productId)
+      window.location.reload();
+    }
   };
 
   const renderProduct = () => {
@@ -51,7 +56,7 @@ export default function Product() {
           <p className="lead">{product.description}</p>
           <button
             className="btn btn-outline-dark px-4 py-2"
-            onClick={addProductToCart}
+            onClick={() => addProductToCart(product.productId)}
           >
             Add to Cart
           </button>

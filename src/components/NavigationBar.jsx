@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
@@ -10,14 +10,26 @@ import { Container, Navbar } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import Spinner from "react-spinkit";
+import { bindActionCreators } from "redux";
+import * as actionCart from "../redux/actions/actionCart";
+import { useDispatch } from "react-redux";
 
 export default function NavigationBar() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  // const [cartProducts] = useCollection(
-  //   activeUser?.id &&
-  //     db.collection("users").doc(activeUser.id).collection("cart")
-  // );
+  const [cartProducts, setCartProducts] = useState();
+  const { getAllProductsByUser } = bindActionCreators(
+    actionCart,
+    useDispatch()
+  );
+
+  useEffect(() => {
+    if (localStorage.email) {
+      getAllProductsByUser(localStorage.email).then((response) => {
+        setCartProducts(response.payload);
+      });
+    }
+  }, []);
 
   const logout = (e) => {
     e.preventDefault();
@@ -61,8 +73,8 @@ export default function NavigationBar() {
                 type="button"
               >
                 <FontAwesomeIcon icon={faShoppingCart} />
-                <span className="nav-btn-label"> CART </span>
-                {/* {cartProducts ? cartProducts?.docs.length : 0}) */}
+                <span className="nav-btn-label"> CART </span>(
+                {cartProducts ? cartProducts?.length : 0})
               </NavLink>
               <NavLink
                 to="/login"
@@ -97,12 +109,12 @@ export default function NavigationBar() {
           )}
           {localStorage.email === "admin@admin.com" && (
             <NavLink
-            to="/admin"
-            className="btn position-relative"
-            type="button"
-          >
-            <span className="nav-btn-label">ADMIN</span>
-          </NavLink>
+              to="/admin"
+              className="btn position-relative"
+              type="button"
+            >
+              <span className="nav-btn-label">ADMIN</span>
+            </NavLink>
           )}
         </div>
 
