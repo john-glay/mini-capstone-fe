@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import AdminBlogs from "../AdminBlogs";
 import AdminPopularProducts from "../AdminPopularProducts";
 import AdminProducts from "../AdminProducts";
+import { useNavigate } from "react-router-dom";
 
 export default function Admin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.email != "admin@admin.com") {
+    if (localStorage.email !== "admin@admin.com") {
       navigate("/");
     }
   }, [navigate]);
 
-  if (localStorage.email != "admin@admin.com") {
-    return null;
+  if (localStorage.email !== "admin@admin.com") {
+    return;
   }
 
   return (

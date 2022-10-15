@@ -20,9 +20,9 @@ export default function Signup() {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
 
-  const [user] = useAuthState(auth);
-  const { registerUser } = bindActionCreators(actionUser, useDispatch());
   const navigate = useNavigate();
+  const { registerUser } = bindActionCreators(actionUser, useDispatch());
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     if (user || localStorage.email) {

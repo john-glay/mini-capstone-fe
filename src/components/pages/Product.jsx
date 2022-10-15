@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
-import Footer from "../Footer";
-import * as actionProduct from "../../redux/actions/actionProduct";
-import { bindActionCreators } from "redux";
-import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import * as actionProduct from "../../redux/actions/actionProduct";
 import * as actionCart from "../../redux/actions/actionCart";
+import Skeleton from "react-loading-skeleton";
+import Footer from "../Footer";
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
 
 export default function Product() {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState([]);
-  const navigate = useNavigate();
   const { getProduct } = bindActionCreators(actionProduct, useDispatch());
   const { addToCart } = bindActionCreators(actionCart, useDispatch());
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -27,8 +27,8 @@ export default function Product() {
   }, [id]);
 
   const addProductToCart = (productId) => {
-    if(localStorage.email) {
-      addToCart(localStorage.email, productId)
+    if (localStorage.email) {
+      addToCart(localStorage.email, productId);
       window.location.reload();
     }
   };
@@ -39,7 +39,9 @@ export default function Product() {
         <div className="col-md-6">
           <img
             src={
-              product.imageLink ? product.imageLink : "/images/empty-img.png"
+              product.imageLink
+                ? `http://localhost:8080/product/${product.productId}/download`
+                : "/images/empty-img.png"
             }
             alt={product.productName}
             height="400px"

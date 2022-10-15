@@ -54,7 +54,11 @@ export default function Collection() {
         <div className="collection-img position-relative">
           <Link to={`/product/${item.productId}`}>
             <img
-              src={item.imageLink ? item.imageLink : "/images/empty-img.png"}
+              src={
+                item.imageLink
+                  ? `http://localhost:8080/product/${item.productId}/download`
+                  : "/images/empty-img.png"
+              }
               alt={item.productName}
               className="w-100"
             />

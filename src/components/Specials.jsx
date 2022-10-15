@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import * as actionProduct from "../redux/actions/actionProduct";
+import * as actionCart from "../redux/actions/actionCart";
 import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
-import * as actionCart from "../redux/actions/actionCart";
 
 export default function Specials() {
   const [specials, setSpecials] = useState([]);
@@ -31,7 +31,11 @@ export default function Specials() {
       <div className="col-md-6 col-lg-4 col-xl-3 p-2" key={item.productId}>
         <div className="special-img position-relative overflow-hidden">
           <img
-            src={item.imageLink ? item.imageLink : "/images/empty-img.png"}
+            src={
+              item.imageLink
+                ? `http://localhost:8080/product/${item.productId}/download`
+                : "/images/empty-img.png"
+            }
             alt={item.productName}
             className="w-100"
           />

@@ -4,13 +4,13 @@ import 'firebase/compat/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA-CN52nsBAgPvlWzm3ay9diOK5wJg5EN8",
-  authDomain: "react-emart-b9b06.firebaseapp.com",
-  projectId: "react-emart-b9b06",
-  storageBucket: "react-emart-b9b06.appspot.com",
-  messagingSenderId: "478984077123",
-  appId: "1:478984077123:web:6d2ce8737fcda628faf9f6"
-};
+    apiKey: "AIzaSyC3hEA8ehSAg1pdwYmWmKLPBi2HOMcfQ9k",
+    authDomain: "react-emart-9c07c.firebaseapp.com",
+    projectId: "react-emart-9c07c",
+    storageBucket: "react-emart-9c07c.appspot.com",
+    messagingSenderId: "745337420024",
+    appId: "1:745337420024:web:0cf2f9425d7161819fe30d"
+  };
 
 // Use this to initialize the firebase App
 const firebaseapp = firebase.initializeApp(firebaseConfig);

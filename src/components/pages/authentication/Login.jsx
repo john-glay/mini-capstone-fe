@@ -19,49 +19,57 @@ export default function Login() {
   // Validation
   const [invalidUser, setInvalidUser] = useState(false);
 
-  const [user] = useAuthState(auth);
-  const { loginUser, loginUserViaProvider } = bindActionCreators(actionUser, useDispatch());
   const navigate = useNavigate();
+  const { loginUser, loginUserViaProvider } = bindActionCreators(
+    actionUser,
+    useDispatch()
+  );
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     if (user || localStorage.email) {
-      // Navigate Home Page
+      // navigate home page
       navigate("/");
     }
   }, [localStorage.email]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     loginUser({ email: email, password: password })
-    .then(() => {
-      localStorage.setItem("email", email);
-      navigate("/")
-    })
-    .catch((error) => {
-      console.log(error, "error");
-      setInvalidUser(true);
-    });
+      .then(() => {
+        localStorage.setItem("email", email);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        setInvalidUser(true);
+      });
   };
 
   const facebookSignIn = (e) => {
     e.preventDefault();
-    auth.signInWithPopup(facebookProvider).then((response) => {
-      loginUserViaProvider(response?.additionalUserInfo.profile.email);
-      localStorage.setItem("email", email);
-      navigate("/")
-    }).catch((e) => alert(e.message));
+    auth
+      .signInWithPopup(facebookProvider)
+      .then((response) => {
+        loginUserViaProvider(response?.additionalUserInfo.profile.email);
+        localStorage.setItem("email", email);
+        navigate("/");
+      })
+      .catch((e) => alert(e.message));
   };
 
   const googleSignIn = (e) => {
     e.preventDefault();
-    auth.signInWithPopup(googleProvider).then((response) => {
-      loginUserViaProvider(response?.additionalUserInfo.profile.email);
-      localStorage.setItem("email", email);
-      navigate("/")
-    }).catch((error) => alert(error.message));
+    auth
+      .signInWithPopup(googleProvider)
+      .then((response) => {
+        loginUserViaProvider(response?.additionalUserInfo.profile.email);
+        localStorage.setItem("email", email);
+        navigate("/");
+      })
+      .catch((error) => alert(error.message));
   };
-
-  console.log(user);
 
   return (
     <div className="auth">

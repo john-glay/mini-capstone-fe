@@ -4,11 +4,11 @@ import Home from "./components/pages/Home";
 import NavigationBar from "./components/NavigationBar";
 import Product from "./components/pages/Product";
 import AboutUs from "./components/pages/AboutUs";
-import Admin from "./components/pages/Admin";
 import ContactUs from "./components/pages/ContactUs";
 import Login from "./components/pages/authentication/Login";
 import Signup from "./components/pages/authentication/Signup";
 import Cart from "./components/pages/Cart";
+import Admin from "./components/pages/Admin";
 
 function App() {
   return (

@@ -113,6 +113,11 @@ footer .brand{
   padding-top: 120px;
 }
 
+/* <!-- ---- Contact Us ---- --> */
+#contactUs{
+  padding-top: 120px;
+}
+
 /* <!-- ---- Cart ---- --> */
 .cartQty {
   background-color: transparent;
@@ -193,7 +198,6 @@ p {
   padding-top: 120px !important;
   padding-left: 100px !important;
   padding-right: 100px !important;
-  padding-bottom: 100px !important;
   display: flex;
   align-items: center;
   justify-content: center;

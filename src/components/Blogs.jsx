@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import * as actionBlog from "../redux/actions/actionBlog";
-import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import * as actionBlog from "../redux/actions/actionBlog";
 
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
@@ -18,8 +18,12 @@ export default function Blogs() {
     return blogs.map((blog) => (
       <div className="col-md-6 col-lg-4 card border-0 my-3" key={blog.blogId}>
         <img
-          src={blog.imageLink ? blog.imageLink : "/images/empty-img.png"}
-          alt="Blog 3"
+          src={
+            blog.imageLink
+              ? `http://localhost:8080/blog/${blog.blogId}/download`
+              : "/images/empty-img.png"
+          }
+          alt={blog.blogName}
         />
         <div className="card-body px-0">
           <h4 className="card-title">{blog.blogName}</h4>

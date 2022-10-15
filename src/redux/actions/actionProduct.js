@@ -30,6 +30,7 @@ export const getProduct = (productId) => {
     })
 }
 
+
 export const addProduct = (body) => {
     const url = '/product/add';
     return new Promise((resolve, reject) => {

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actionProduct from "../redux/actions/actionProduct";
 import { useDropzone } from "react-dropzone";
+import axios from "axios";
 
 export default function AdminProducts() {
   const [productName, setProductName] = useState("");
@@ -22,13 +23,13 @@ export default function AdminProducts() {
   const [invalidProductName, setInvalidProductName] = useState(false);
   const [invalidPrice, setInvalidPrice] = useState(false);
   const [invalidDescription, setInvalidDescription] = useState(false);
+
   useEffect(() => {
     getAllProducts();
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (checkIfValid()) {
       const requestBody = {
         productName: productName,
@@ -74,12 +75,31 @@ export default function AdminProducts() {
   };
 
   function MyDropzone(product) {
-
     // Callback function
     const onDrop = useCallback((acceptedFiles) => {
       const file = acceptedFiles[0];
+
       const formData = new FormData();
       formData.append("file", file);
+
+      // Upload Image
+      axios
+        .put(
+          `http://localhost:8080/product/${product.productId}/upload`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(() => {
+          console.log("file uploaded successfully");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }, []);
 
     // React Dropzone
@@ -89,7 +109,11 @@ export default function AdminProducts() {
     return (
       <div className="card h-100 text-center p-4">
         <img
-          src={product.imageLink ? product.imageLink : "/images/empty-img.png"}
+          src={
+            product.imageLink
+              ? `http://localhost:8080/product/${product.productId}/download`
+              : "/images/empty-img.png"
+          }
           alt={product.productName}
           {...getRootProps()}
         />
@@ -129,7 +153,6 @@ export default function AdminProducts() {
     <>
       <hr />
       <Form onSubmit={handleSubmit} className="row">
-        
         {/* PRODUCT NAME */}
         <Form.Group controlId="formProductName" className="w-50">
           <Form.Control
@@ -211,6 +234,7 @@ export default function AdminProducts() {
             Please input a product description
           </Form.Control.Feedback>
         </Form.Group>
+
         <div className="col-12 d-flex flex-wrap justify-content-center">
           <button
             className="bg-primary text-center text-white w-50"

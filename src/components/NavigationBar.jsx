@@ -10,14 +10,14 @@ import { Container, Navbar } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import Spinner from "react-spinkit";
-import { bindActionCreators } from "redux";
 import * as actionCart from "../redux/actions/actionCart";
+import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
 
 export default function NavigationBar() {
   const [loading, setLoading] = useState(false);
+  const [cartProducts, setCartProducts] = useState([]);
   const navigate = useNavigate();
-  const [cartProducts, setCartProducts] = useState();
   const { getAllProductsByUser } = bindActionCreators(
     actionCart,
     useDispatch()
@@ -94,13 +94,12 @@ export default function NavigationBar() {
                 type="button"
               >
                 <FontAwesomeIcon icon={faSignIn} />
-                <span className="nav-btn-label"> LOGIN </span>
+                <span className="nav-btn-label"> LOGIN</span>
               </NavLink>
               <NavLink
                 to="/signup"
                 className="btn position-relative"
                 type="button"
-                onClick={logout}
               >
                 <FontAwesomeIcon icon={faEdit} />
                 <span className="nav-btn-label"> REGISTER</span>
@@ -113,7 +112,7 @@ export default function NavigationBar() {
               className="btn position-relative"
               type="button"
             >
-              <span className="nav-btn-label">ADMIN</span>
+              <span className="nav-btn-label"> ADMIN</span>
             </NavLink>
           )}
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { Col, Container, Form, ListGroup, Row } from "react-bootstrap";
+import { Col, Container, Form, ListGroup, Row, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import * as actionCart from "../../redux/actions/actionCart";
 import { bindActionCreators } from "redux";
@@ -41,6 +41,20 @@ export default function Cart() {
     });
     setTotal(value);
   }, [cartProducts]);
+
+  const cartCheckOut = (e) => {
+    e.preventDefault();
+    checkOut(activeUser.email).then((response) => {
+      setShowModal(true);
+      setCartProducts(response.payload);
+    });
+  };
+
+  const closeModal = (e) => {
+    e.preventDefault();
+    setShowModal(false);
+    window.location.reload();
+  };
 
   const setQuantity = (productId, quantity) => {
     const newProductList = [];
@@ -89,7 +103,7 @@ export default function Cart() {
                       <img
                         src={
                           product.imageLink
-                            ? product.imageLink
+                            ? `http://localhost:8080/product/${product.productId}/download`
                             : "/images/empty-img.png"
                         }
                         alt={product.productName}
@@ -172,6 +186,26 @@ export default function Cart() {
                 <p style={{ fontWeight: "bold" }}>Order Total:</p>
                 <p>$ {Math.round(total)}</p>
               </div>
+
+              <button className="btn btn-primary mt-5" onClick={cartCheckOut}>
+                CHECKOUT
+              </button>
+
+              <Modal show={showModal}>
+                <Modal.Header>
+                  <Modal.Title className="text-dark">
+                    Congratulation!
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-dark">
+                  Successful Checkout!
+                </Modal.Body>
+                <Modal.Footer>
+                  <button variant="secondary" onClick={closeModal}>
+                    Close
+                  </button>
+                </Modal.Footer>
+              </Modal>
             </div>
           </Col>
         </Row>
